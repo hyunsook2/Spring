@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<hader>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<title>제먹</title>
+</head>
+<body>
+
+  <table style="border:2px black solid; background: linear-gradient(45deg, Violet, Orange); border-radius:20px; margin-left:auto; margin-right:auto; margin-top:500px;">
+    <tr th:each="entry,status:${items}" th:style="${status.odd}?'color:red;':'color:blue;'">
+        <td th:text="${entry.key}"></td>
+        <td>[[${entry.value.itemNm}]]</td>
+        <td th:text="${#strings.replace(entry.value.itemDetail,'더미','테스트')}"></td>
+        <td th:text="${entry.value.price}"></td>
+        <td th:text="${#strings.substring(entry.value.regTime,0,4)+'년'}"></td>
+
+    </tr>
+  </table>
+
+</body>
+</html>

@@ -1,11 +1,16 @@
 package com.shop.controller;
 
 import com.shop.dto.ItemDto;
+import com.shop.service.ItemServiceForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +18,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value="/thymeleaf")
 public class ThymeleafExController {
+    @Autowired
+    private ItemServiceForm itemService;
     @GetMapping(value = "/ex01")
     public String thymeleafExam01(Model model) {
         model.addAttribute("data", "타임리프예제");
@@ -75,6 +82,23 @@ public class ThymeleafExController {
     @GetMapping(value = "/ex07")
     public String thymeleafExam07() {
         return "thymeleafEx/thymeleafEx07";
+    }
+
+    @GetMapping(value = "/ex08")
+    public String thymeleafExam08(Model model) {
+        model.addAttribute("items",itemService.getItemAll());
+        return "thymeleafEx/thymeleafEx08";
+    }
+
+    @GetMapping(value = "/ex09")
+    public String thymeleafExam09(Model model,ItemDto item){
+        return "thymeleafEx/thymeleafEx09";
+    }
+    @PostMapping(value = "/ex09r")
+    public String thymeleafExam09Result(HttpServletRequest req, Model model, ItemDto item){
+        itemService.createItem(item);
+        model.addAttribute("items",itemService.getItemAll());
+        return "thymeleafEx/thymeleafEx09r";
     }
 }
 
